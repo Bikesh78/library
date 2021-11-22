@@ -11,15 +11,20 @@ Book.prototype.info = function(){
 // console.log(theHobbit.info());
 let myLibrary = [];
 function addBookToLibrary(){
-    let title = prompt('Title of the book');
-    let author = prompt('Author\'s name');
-    let numberOfPages = prompt('Number of pages');
-    let readStatus = prompt('Read status');
+    let title = document.getElementsByName('title')[0].value;
+    let author = document.getElementsByName('author')[0].value;
+    let numberOfPages =document.getElementsByName('page-number')[0].value;
+    let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
+    console.log(readStatus);
     myLibrary.push(new Book(title, author,numberOfPages,readStatus));
     console.table(myLibrary);
 }
 addBookToLibrary();
-
+function getRadioInputValue(options){
+    for(let key of options){
+        if(key.checked === true) return key.value;
+    }
+}
 // function displayBook(myLibrary){
 //     for(let x of myLibrary){
 //         alert(`${x.title} `)
