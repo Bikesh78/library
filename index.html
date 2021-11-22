@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel = "stylesheet" href="CSS/style.css">
+    <script src = "JS/script.js" defer></script>
+</head>
+<body>
+    <div class="header">Library</div>
+    <div class="container"></div>
+    <button class="Add">Add</button>
+    <div class="form-popup" id="myForm">
+        <form action="JS/script.js" class="form-container">
+            <h1>Add New Book</h1>
+            <label for="title">Title</label>
+            <input type="text" placeholder="Enter Title Of The Book" name="title" required>
+            <label for="author">Author</label>
+            <input type="text" placeholder="Enter Author's Name" name="author" required>
+            <label for="page-number">Number of pages</label>
+            <input type="number" placeholder="Enter the number of pages" name="page-number" required>
+            <p>Have you completed reading the book?</p>
+            <input type="radio" name="read-status" value='yes'>
+            <label for="read-yes">Yes</label>
+            <input type="radio" name="read-status" value="no">
+            <label for="read-no">No</label>
+            <input type="submit" value="Submit">
+            <button class="button cancel">Cancel</button>
+        </form>
+    </div>
+</body>
+</html>
