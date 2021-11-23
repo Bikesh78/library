@@ -34,10 +34,12 @@ addBtn.addEventListener('click',(e) => {
 });
 cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
 const submitBtn = document.querySelector('.submit');
-submitBtn.setAttribute('type','button');
-submitBtn.addEventListener('click',(e) => {
+// submitBtn.setAttribute('type','button');
+document.querySelector('#myForm').addEventListener('submit',(e) => {
+    e.preventDefault();
     addBookToLibrary();
     clearInputField();
+    popUpForm.style.display= 'none';
 });
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
@@ -48,6 +50,9 @@ function clearInputField(){
         x.checked = false;
     }
 }
+// function checkForEmptyField(){
+//     if()
+// }
 
 // function displayBook(myLibrary){
 //     for(let x of myLibrary){
