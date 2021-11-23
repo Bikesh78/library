@@ -15,16 +15,40 @@ function addBookToLibrary(){
     let author = document.getElementsByName('author')[0].value;
     let numberOfPages =document.getElementsByName('page-number')[0].value;
     let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
-    console.log(readStatus);
-    myLibrary.push(new Book(title, author,numberOfPages,readStatus));
+    myLibrary.push(new Book(title,author,numberOfPages,readStatus));
     console.table(myLibrary);
 }
-addBookToLibrary();
+// addBookToLibrary();
+
 function getRadioInputValue(options){
     for(let key of options){
         if(key.checked === true) return key.value;
     }
 }
+const popUpForm = document.querySelector('.form-popup');
+const cancelBtn = document.querySelector('.cancel');
+const addBtn = document.querySelector('.add');
+addBtn.addEventListener('click',(e) => {
+    popUpForm.style.display = 'block';
+    clearInputField();
+});
+cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
+const submitBtn = document.querySelector('.submit');
+submitBtn.setAttribute('type','button');
+submitBtn.addEventListener('click',(e) => {
+    addBookToLibrary();
+    clearInputField();
+});
+function clearInputField(){
+    document.getElementsByName('title')[0].value = '';
+    document.getElementsByName('author')[0].value = '';
+    document.getElementsByName('page-number')[0].value = '';   
+    let radioReadStatus = document.querySelectorAll("input[name='read-status']");
+    for(let x of radioReadStatus){
+        x.checked = false;
+    }
+}
+
 // function displayBook(myLibrary){
 //     for(let x of myLibrary){
 //         alert(`${x.title} `)
