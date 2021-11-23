@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+}
+.form-popup{
+    display : none;
+    border: 1px solid black;
+    max-width: 300px;
+    padding:15px;
+    
+}
+
+.form-container input[type=text],
+.form-container input[type=number]{
+    width : 100%;
+    padding : 10px;
+    margin : 5px 0 20px;
+}
+.form-container .button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+.form-container .cancel {
+    background-color: red;
+}
+.form-container .button:hover,
+.form-container .cancel:hover{
+    opacity:1;
+}
