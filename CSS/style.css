@@ -33,3 +33,46 @@
 .form-container .cancel:hover{
     opacity:1;
 }
+.header{
+    font-size:36px;
+    color: rgba(255, 255, 255, 0.849);
+    background-color: #2f7ee6;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+}
+.card{
+    height:250px;
+    width:250px;
+    box-shadow:0  10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: cyan;
+    
+}
+body{
+    /* height:100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.container{
+    display:flex;
+    flex-wrap: wrap;
+    gap:25px;
+    margin:25px;
+}
+.add{
+    position:fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: cyan;
+    border-radius: 50%;
+    border-style: none;
+    font-size: 50px;
+    padding:5px 10px;
+    color:white;
+    text-align: center;
+    opacity: 0.8;
+}
+.add:hover{
+    opacity: 1;
+    transform: scale(1.2);
+}
