@@ -9,6 +9,31 @@ function Book(title, author, numberOfPages, readStatus){
 // }
 // const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkein', 295, 'not read yet');
 // console.log(theHobbit.info());
+function returnLastItem(array){ //returs last element of an array
+    return array[array.length - 1];
+}
+let cardCounter = 1;
+Book.prototype.display = function(){
+    cardClassName = 'card'+ cardCounter;
+    createCard(cardClassName);
+    cardCounter++;
+    let bookTitle = document.createElement('p');
+    bookTitle.textContent = this.title;
+    bookTitle.setAttribute('class', 'bookTitle');
+    let bookAuthor = document.createElement('p');
+    bookAuthor.textContent = this.author;
+    bookAuthor.setAttribute('class','bookAuthor');
+    let bookNumberOfPages = document.createElement('p');
+    bookNumberOfPages.textContent = this.numberOfPages;
+    bookNumberOfPages.setAttribute('class','bookNumberOfPages');
+    appendToParent(`.${cardClassName}`, bookTitle,bookAuthor,bookNumberOfPages);
+}
+function appendToParent(parentNode,node1, node2,node3){
+    document.querySelector(`${parentNode}`).appendChild(node1);
+    document.querySelector(`${parentNode}`).appendChild(node2);
+    document.querySelector(`${parentNode}`).appendChild(node3);
+}
+
 let myLibrary = [];
 function addBookToLibrary(){
     let title = document.getElementsByName('title')[0].value;
@@ -19,7 +44,7 @@ function addBookToLibrary(){
     console.table(myLibrary);
     
 }
-// addBookToLibrary();
+
 
 function getRadioInputValue(options){
     for(let key of options){
@@ -34,14 +59,14 @@ addBtn.addEventListener('click',(e) => {
     clearInputField();
 });
 cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
-const submitBtn = document.querySelector('.submit');
+// const submitBtn = document.querySelector('.submit');
 // submitBtn.setAttribute('type','button');
 document.querySelector('#myForm').addEventListener('submit',(e) => {
     e.preventDefault();
     addBookToLibrary();
     clearInputField();
     popUpForm.style.display= 'none';
-    createCard();
+    returnLastItem(myLibrary).display();
 });
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
@@ -52,21 +77,8 @@ function clearInputField(){
         x.checked = false;
     }
 }
-function createCard(){
+function createCard(className){
     let card = document.createElement('div');
-    card.setAttribute('class','card');
+    card.setAttribute('class',`${className} card`);
     document.querySelector('.container').appendChild(card);
-    displayBook(myLibrary);
 }
-// function checkForEmptyField(){
-//     if()
-// }
-
-// function displayBook(myLibrary){
-//     for(let x of myLibrary){
-//         for(let y in x){
-//             console.log(`${x[y]}`);
-//         }
-//     }
-// }
-// displayBook(myLibrary);
