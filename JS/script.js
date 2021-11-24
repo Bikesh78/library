@@ -81,4 +81,24 @@ function createCard(className){
     let card = document.createElement('div');
     card.setAttribute('class',`${className} card`);
     document.querySelector('.container').appendChild(card);
+    let readBtn = document.createElement('button');
+    readBtn.setAttribute('class','readBtn');
+    readBtn.textContent = 'Read';
+    document.querySelector(`.${className}`).appendChild(readBtn);
+    let deleteBtn = document.querySelector('button');
+    deleteBtn.setAttribute('class','deleteBtn');
+    deleteBtn.textContent = 'Delete';
+    document.querySelector(`.${className}`).appendChild(deleteBtn);
 }
+// let deleteBtn = document.querySelectorAll('.deleteBtn');
+// deleteBtn.forEach(deleteBtn => {
+//     deleteBtn.addEventListener('click',(e) =>{
+
+//     });
+// });
+// let readBtn = document.querySelectorAll('.readBtn');
+// readBtn.forEach(readBtn => {
+//     readBtn.addEventListener('click',(e) =>{
+
+//     });
+// });
