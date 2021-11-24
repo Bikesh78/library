@@ -85,7 +85,7 @@ function createCard(className){
     readBtn.setAttribute('class','readBtn');
     readBtn.textContent = 'Read';
     document.querySelector(`.${className}`).appendChild(readBtn);
-    let deleteBtn = document.querySelector('button');
+    let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
     document.querySelector(`.${className}`).appendChild(deleteBtn);
