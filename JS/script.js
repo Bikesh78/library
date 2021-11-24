@@ -40,6 +40,7 @@ document.querySelector('#myForm').addEventListener('submit',(e) => {
     addBookToLibrary();
     clearInputField();
     popUpForm.style.display= 'none';
+    createCard();
 });
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
@@ -49,6 +50,11 @@ function clearInputField(){
     for(let x of radioReadStatus){
         x.checked = false;
     }
+}
+function createCard(){
+    let card = document.createElement('div');
+    card.setAttribute('class','card');
+    document.querySelector('.container').appendChild(card);
 }
 // function checkForEmptyField(){
 //     if()
