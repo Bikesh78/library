@@ -33,3 +33,10 @@
 .form-container .cancel:hover{
     opacity:1;
 }
+.header{
+    font-size:36px;
+    color: rgba(255, 255, 255, 0.849);
+    background-color: #2f7ee6;
+    padding: 5px;
+    margin-bottom: 10px;
+}
