@@ -4,9 +4,9 @@ function Book(title, author, numberOfPages, readStatus){
     this.numberOfPages = numberOfPages;
     this.readStatus = readStatus;
 }
-Book.prototype.info = function(){
-    return `${this.title} by ${this.author}, ${this.numberOfPages} pages, ${this.readStatus} `;
-}
+// Book.prototype.info = function(){
+//     return `${this.title} by ${this.author}, ${this.numberOfPages} pages, ${this.readStatus} `;
+// }
 // const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkein', 295, 'not read yet');
 // console.log(theHobbit.info());
 let myLibrary = [];
@@ -17,6 +17,7 @@ function addBookToLibrary(){
     let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
     myLibrary.push(new Book(title,author,numberOfPages,readStatus));
     console.table(myLibrary);
+    
 }
 // addBookToLibrary();
 
@@ -55,6 +56,7 @@ function createCard(){
     let card = document.createElement('div');
     card.setAttribute('class','card');
     document.querySelector('.container').appendChild(card);
+    displayBook(myLibrary);
 }
 // function checkForEmptyField(){
 //     if()
@@ -62,7 +64,9 @@ function createCard(){
 
 // function displayBook(myLibrary){
 //     for(let x of myLibrary){
-//         alert(`${x.title} `)
+//         for(let y in x){
+//             console.log(`${x[y]}`);
+//         }
 //     }
 // }
 // displayBook(myLibrary);
