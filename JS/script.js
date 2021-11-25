@@ -78,6 +78,7 @@ function clearInputField(){
         x.checked = false;
     }
 }
+
 function createCard(className,readStatus){
     let card = document.createElement('div');
     card.setAttribute('class',`${className} card`);
@@ -86,6 +87,9 @@ function createCard(className,readStatus){
     readBtn.setAttribute('class','readBtn');
     showReadStatus(readStatus,readBtn);
     document.querySelector(`.${className}`).appendChild(readBtn);
+
+    const readButton = card.childNodes;
+    changeReadStatus(readButton);
     
     let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
@@ -100,4 +104,17 @@ function showReadStatus(readStatus,readBtn){
         readBtn.style.backgroundColor = 'red';
         readBtn.textContent = 'Not Completed';
     }
+}
+function changeReadStatus(readButton){
+    readButton.forEach(readButton =>{
+        readButton.addEventListener('click',(e) =>{
+            if(e.target.textContent === 'Completed'){
+                e.target.textContent = 'Not Completed';
+                e.target.style.backgroundColor = 'red';
+            }else if(e.target.textContent === 'Not Completed'){
+                e.target.textContent = 'Completed';
+                e.target.style.backgroundColor = 'green';
+            }
+        });
+    }); 
 }
