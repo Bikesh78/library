@@ -14,8 +14,8 @@ function returnLastItem(array){ //returs last element of an array
 }
 let cardCounter = 1;
 Book.prototype.display = function(){
-    cardClassName = 'card'+ cardCounter;
-    createCard(cardClassName,this.readStatus);
+    cardId = 'card'+ cardCounter;
+    createCard(cardId,this.readStatus);
     cardCounter++;
     let bookTitle = document.createElement('p');
     bookTitle.textContent = this.title;
@@ -27,9 +27,9 @@ Book.prototype.display = function(){
     bookNumberOfPages.textContent = this.numberOfPages;
     bookNumberOfPages.setAttribute('class','bookNumberOfPages');
     // showReadStatus(this.readStatus);
-    appendToParent(`.${cardClassName}`, bookTitle,bookAuthor,bookNumberOfPages);
+    appendToParent(`#${cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
-function appendToParent(parentNode,node1, node2,node3){
+function appendToParent(parentNode,node1, node2, node3){
     document.querySelector(`${parentNode}`).appendChild(node1);
     document.querySelector(`${parentNode}`).appendChild(node2);
     document.querySelector(`${parentNode}`).appendChild(node3);
@@ -79,14 +79,15 @@ function clearInputField(){
     }
 }
 
-function createCard(className,readStatus){
+function createCard(idName,readStatus){
     let card = document.createElement('div');
-    card.setAttribute('class',`${className} card`);
+    card.setAttribute('id',`${idName}`);
+    card.setAttribute('class','card');
     document.querySelector('.container').appendChild(card);
     let readBtn = document.createElement('button');
     readBtn.setAttribute('class','readBtn');
     showReadStatus(readStatus,readBtn);
-    document.querySelector(`.${className}`).appendChild(readBtn);
+    document.querySelector(`#${idName}`).appendChild(readBtn);
 
     const readButton = card.childNodes;
     changeReadStatus(readButton);
@@ -94,7 +95,7 @@ function createCard(className,readStatus){
     let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
-    document.querySelector(`.${className}`).appendChild(deleteBtn);
+    document.querySelector(`#${idName}`).appendChild(deleteBtn);
 }
 function showReadStatus(readStatus,readBtn){
     if(readStatus === 'yes'){
