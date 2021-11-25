@@ -15,7 +15,7 @@ function returnLastItem(array){ //returs last element of an array
 let cardCounter = 1;
 Book.prototype.display = function(){
     cardClassName = 'card'+ cardCounter;
-    createCard(cardClassName);
+    createCard(cardClassName,this.readStatus);
     cardCounter++;
     let bookTitle = document.createElement('p');
     bookTitle.textContent = this.title;
@@ -26,6 +26,7 @@ Book.prototype.display = function(){
     let bookNumberOfPages = document.createElement('p');
     bookNumberOfPages.textContent = this.numberOfPages;
     bookNumberOfPages.setAttribute('class','bookNumberOfPages');
+    // showReadStatus(this.readStatus);
     appendToParent(`.${cardClassName}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
 function appendToParent(parentNode,node1, node2,node3){
@@ -77,28 +78,26 @@ function clearInputField(){
         x.checked = false;
     }
 }
-function createCard(className){
+function createCard(className,readStatus){
     let card = document.createElement('div');
     card.setAttribute('class',`${className} card`);
     document.querySelector('.container').appendChild(card);
     let readBtn = document.createElement('button');
     readBtn.setAttribute('class','readBtn');
-    readBtn.textContent = 'Read';
+    showReadStatus(readStatus,readBtn);
     document.querySelector(`.${className}`).appendChild(readBtn);
+    
     let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
     document.querySelector(`.${className}`).appendChild(deleteBtn);
 }
-// let deleteBtn = document.querySelectorAll('.deleteBtn');
-// deleteBtn.forEach(deleteBtn => {
-//     deleteBtn.addEventListener('click',(e) =>{
-
-//     });
-// });
-// let readBtn = document.querySelectorAll('.readBtn');
-// readBtn.forEach(readBtn => {
-//     readBtn.addEventListener('click',(e) =>{
-
-//     });
-// });
+function showReadStatus(readStatus,readBtn){
+    if(readStatus === 'yes'){
+        readBtn.style.backgroundColor = 'green';
+        readBtn.textContent = 'Completed';
+    }else if(readStatus === 'no'){
+        readBtn.style.backgroundColor = 'red';
+        readBtn.textContent = 'Not Completed';
+    }
+}
