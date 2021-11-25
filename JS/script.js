@@ -4,18 +4,15 @@ function Book(title, author, numberOfPages, readStatus){
     this.numberOfPages = numberOfPages;
     this.readStatus = readStatus;
 }
-// Book.prototype.info = function(){
-//     return `${this.title} by ${this.author}, ${this.numberOfPages} pages, ${this.readStatus} `;
-// }
-// const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkein', 295, 'not read yet');
-// console.log(theHobbit.info());
+
 function returnLastItem(array){ //returs last element of an array
     return array[array.length - 1];
 }
+
 let cardCounter = 1;
 Book.prototype.display = function(){
     cardId = 'card'+ cardCounter;
-    createCard(cardId,this.readStatus);
+    createCard(cardId,this.readStatus); //creates card with unique id to show book information
     cardCounter++;
     let bookTitle = document.createElement('p');
     bookTitle.textContent = this.title;
@@ -26,9 +23,9 @@ Book.prototype.display = function(){
     let bookNumberOfPages = document.createElement('p');
     bookNumberOfPages.textContent = this.numberOfPages;
     bookNumberOfPages.setAttribute('class','bookNumberOfPages');
-    // showReadStatus(this.readStatus);
     appendToParent(`#${cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
+
 function appendToParent(parentNode,node1, node2, node3){
     document.querySelector(`${parentNode}`).appendChild(node1);
     document.querySelector(`${parentNode}`).appendChild(node2);
@@ -46,22 +43,21 @@ function addBookToLibrary(){
     
 }
 
-
 function getRadioInputValue(options){
     for(let key of options){
         if(key.checked === true) return key.value;
     }
 }
+
 const popUpForm = document.querySelector('.form-popup');
 const cancelBtn = document.querySelector('.cancel');
 const addBtn = document.querySelector('.add');
 addBtn.addEventListener('click',(e) => {
-    popUpForm.style.display = 'block';
+    popUpForm.style.display = 'block'; //makes pop up form visible
     clearInputField();
 });
 cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
-// const submitBtn = document.querySelector('.submit');
-// submitBtn.setAttribute('type','button');
+
 document.querySelector('#myForm').addEventListener('submit',(e) => {
     e.preventDefault();
     addBookToLibrary();
@@ -89,14 +85,20 @@ function createCard(idName,readStatus){
     showReadStatus(readStatus,readBtn);
     document.querySelector(`#${idName}`).appendChild(readBtn);
 
-    const readButton = card.childNodes;
+    const readButton = card.childNodes; //Creates live nodelist that updates itself when new DOM is added
     changeReadStatus(readButton);
     
     let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
     document.querySelector(`#${idName}`).appendChild(deleteBtn);
+    // Delete card
+    deleteBtn.addEventListener('click',(e)=> {
+        parentCard = deleteBtn.parentNode;
+        document.querySelector('.container').removeChild(parentCard);
+    });
 }
+
 function showReadStatus(readStatus,readBtn){
     if(readStatus === 'yes'){
         readBtn.style.backgroundColor = 'green';
