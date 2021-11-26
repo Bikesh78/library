@@ -18,10 +18,10 @@ Book.prototype.display = function(){
     bookTitle.textContent = this.title;
     bookTitle.setAttribute('class', 'bookTitle');
     let bookAuthor = document.createElement('p');
-    bookAuthor.textContent = this.author;
+    bookAuthor.textContent = `Author: ${this.author}`;
     bookAuthor.setAttribute('class','bookAuthor');
     let bookNumberOfPages = document.createElement('p');
-    bookNumberOfPages.textContent = this.numberOfPages;
+    bookNumberOfPages.textContent = `Page Count: ${this.numberOfPages}`;
     bookNumberOfPages.setAttribute('class','bookNumberOfPages');
     appendToParent(`#${cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
@@ -39,7 +39,7 @@ function addBookToLibrary(){
     let numberOfPages =document.getElementsByName('page-number')[0].value;
     let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
     myLibrary.push(new Book(title,author,numberOfPages,readStatus));
-    console.table(myLibrary);
+    // console.table(myLibrary);
     
 }
 

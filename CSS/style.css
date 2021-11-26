@@ -9,7 +9,7 @@
     padding:15px;
     position: absolute;
     z-index: 10;
-    
+    margin-left:25%;
 }
 
 .form-container input[type=text],
@@ -47,8 +47,44 @@
     height:250px;
     width:250px;
     box-shadow:0  10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    background-color: cyan;
-    
+    background-color: rgb(23, 62, 235);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1%;
+}
+.readBtn{
+    order:4;
+    margin-bottom:10px;
+   
+}
+.deleteBtn{
+    order:5;
+    background-color: red;
+    border-bottom-right-radius: 1%;
+    border-bottom-left-radius: 1%;
+}
+.readBtn,
+.deleteBtn{
+    padding:10px;
+    color:antiquewhite;
+    border: 0px solid;
+}
+
+.bookTitle{
+    text-align: center;
+    font-size:24px;
+    color:antiquewhite;
+    font-weight: bold;
+    font-style: italic;
+}
+.bookAuthor,
+.bookNumberOfPages{
+    text-align: center;
+    font-size: 20px;
+    color:antiquewhite;
+    font-weight: bold;
+    font-style: italic;
 }
 body{
     /* height:100vh; */
