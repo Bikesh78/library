@@ -96,11 +96,13 @@ function createCard(idName,readStatus){
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
     document.querySelector(`#${idName}`).appendChild(deleteBtn);
-    // Delete card
+  
+    // Delete card 
     deleteBtn.addEventListener('click',(e)=> {
-        parentCard = deleteBtn.parentNode;
-        deleteBtn.getAttribute('id');
-        console.log(parentCard.getAttribute('id'));
+        parentCard = deleteBtn.parentNode; 
+        let parentCardId = parentCard.getAttribute('id');
+        const libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId)); //gets index of book in myLibrary
+        myLibrary.splice(libraryCardIdIndex,1); // Deletes book from myLibrary array
         document.querySelector('.container').removeChild(parentCard);
     });
 }
