@@ -10,12 +10,12 @@ function returnLastItem(array){ //returs last element of an array
 }
 
 let myLibrary = [];
-// let cardCounter = myLibrary.length;
+let cardCounter = 1;
 Book.prototype.display = function(){
-    // cardId = 'card'+ cardCounter;
-    this.cardId = `card${myLibrary.length}`;
-    createCard(this.cardId,this.readStatus); //creates card with unique id to show book information
-    
+    cardId = 'card'+ cardCounter;
+    // this.cardId = `card${myLibrary.length}`;
+    createCard(cardId,this.readStatus); //creates card with unique id to show book information
+    cardCounter++
     let bookTitle = document.createElement('p');
     bookTitle.textContent = this.title;
     bookTitle.setAttribute('class', 'bookTitle');
@@ -25,7 +25,7 @@ Book.prototype.display = function(){
     let bookNumberOfPages = document.createElement('p');
     bookNumberOfPages.textContent = `Page Count: ${this.numberOfPages}`;
     bookNumberOfPages.setAttribute('class','bookNumberOfPages');
-    appendToParent(`#${this.cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
+    appendToParent(`#${cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
 
 function appendToParent(parentNode,node1, node2, node3){
@@ -66,7 +66,7 @@ document.querySelector('#myForm').addEventListener('submit',(e) => {
     addBookToLibrary();
     clearInputField();
     popUpForm.style.display= 'none';
-    // returnLastItem(myLibrary).display();
+    
 });
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
