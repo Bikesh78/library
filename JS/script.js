@@ -13,7 +13,7 @@ let myLibrary = [];
 let cardCounter = 1;
 Book.prototype.display = function(){
     cardId = 'card'+ cardCounter;
-    this.cardId = cardId;
+    this.cardId = cardId; //added cardId property to retrieve index of the array
     createCard(cardId,this.readStatus); //creates card with unique id to show book information
     cardCounter++
     let bookTitle = document.createElement('p');
@@ -55,6 +55,7 @@ function getRadioInputValue(options){
 const popUpForm = document.querySelector('.form-popup');
 const cancelBtn = document.querySelector('.cancel');
 const addBtn = document.querySelector('.add');
+
 addBtn.addEventListener('click',(e) => {
     popUpForm.style.display = 'block'; //makes pop up form visible
     clearInputField();
@@ -62,12 +63,13 @@ addBtn.addEventListener('click',(e) => {
 cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
 
 document.querySelector('#myForm').addEventListener('submit',(e) => {
-    e.preventDefault();
+    e.preventDefault(); //prevents page from refreshing
     addBookToLibrary();
     clearInputField();
     popUpForm.style.display= 'none';
     
 });
+
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
     document.getElementsByName('author')[0].value = '';
@@ -95,15 +97,8 @@ function createCard(idName,readStatus){
     deleteBtn.setAttribute('class','deleteBtn');
     deleteBtn.textContent = 'Delete';
     document.querySelector(`#${idName}`).appendChild(deleteBtn);
-  
-    // Delete card 
-    deleteBtn.addEventListener('click',(e)=> {
-        parentCard = deleteBtn.parentNode; 
-        let parentCardId = parentCard.getAttribute('id');
-        const libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId)); //gets index of book in myLibrary
-        myLibrary.splice(libraryCardIdIndex,1); // Deletes book from myLibrary array
-        document.querySelector('.container').removeChild(parentCard);
-    });
+
+    deleteCard(deleteBtn);
 }
 
 function showReadStatus(readStatus,readBtn){
@@ -119,7 +114,7 @@ function changeReadStatus(readButton){
     readButton.forEach(readButton =>{
         readButton.addEventListener('click',(e) =>{
             
-            let parentCard = e.target.parentNode;
+            let parentCard = readButton.parentNode;
             let parentCardId = parentCard.getAttribute('id');
             libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId));
             
@@ -130,14 +125,16 @@ function changeReadStatus(readButton){
                 myLibrary[libraryCardIdIndex].readStatus = 'no';
                 showReadStatus('no',readButton);
             }
-
-            // if(e.target.textContent === 'Completed'){
-            //     e.target.textContent = 'Not Completed';
-            //     e.target.style.backgroundColor = 'red';
-            // }else if(e.target.textContent === 'Not Completed'){
-            //     e.target.textContent = 'Completed';
-            //     e.target.style.backgroundColor = 'green';
-            // }
         });
     }); 
+}
+
+function deleteCard(deleteBtn){
+    deleteBtn.addEventListener('click',(e)=> {
+            parentCard = deleteBtn.parentNode; 
+            let parentCardId = parentCard.getAttribute('id');
+            const libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId)); //gets index of book in myLibrary
+            myLibrary.splice(libraryCardIdIndex,1); // Deletes book from myLibrary array
+            document.querySelector('.container').removeChild(parentCard);
+    });
 }
