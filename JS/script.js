@@ -13,7 +13,7 @@ let myLibrary = [];
 let cardCounter = 1;
 Book.prototype.display = function(){
     cardId = 'card'+ cardCounter;
-    // this.cardId = `card${myLibrary.length}`;
+    this.cardId = cardId;
     createCard(cardId,this.readStatus); //creates card with unique id to show book information
     cardCounter++
     let bookTitle = document.createElement('p');
@@ -90,7 +90,6 @@ function createCard(idName,readStatus){
 
     const readButton = card.childNodes; //Creates live nodelist that updates itself when new DOM is added
     changeReadStatus(readButton);
-    console.log(readButton);
     
     let deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('class','deleteBtn');
@@ -119,13 +118,26 @@ function showReadStatus(readStatus,readBtn){
 function changeReadStatus(readButton){
     readButton.forEach(readButton =>{
         readButton.addEventListener('click',(e) =>{
-            if(e.target.textContent === 'Completed'){
-                e.target.textContent = 'Not Completed';
-                e.target.style.backgroundColor = 'red';
-            }else if(e.target.textContent === 'Not Completed'){
-                e.target.textContent = 'Completed';
-                e.target.style.backgroundColor = 'green';
+            
+            let parentCard = e.target.parentNode;
+            let parentCardId = parentCard.getAttribute('id');
+            libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId));
+            
+            if(myLibrary[libraryCardIdIndex].readStatus === 'no'){
+                myLibrary[libraryCardIdIndex].readStatus = 'yes';
+                showReadStatus('yes',readButton);
+            }else if(myLibrary[libraryCardIdIndex].readStatus === 'yes'){
+                myLibrary[libraryCardIdIndex].readStatus = 'no';
+                showReadStatus('no',readButton);
             }
+
+            // if(e.target.textContent === 'Completed'){
+            //     e.target.textContent = 'Not Completed';
+            //     e.target.style.backgroundColor = 'red';
+            // }else if(e.target.textContent === 'Not Completed'){
+            //     e.target.textContent = 'Completed';
+            //     e.target.style.backgroundColor = 'green';
+            // }
         });
     }); 
 }
