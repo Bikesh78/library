@@ -1,49 +1,62 @@
-function Book(title, author, numberOfPages, readStatus){
-    this.title = title;
-    this.author = author;
-    this.numberOfPages = numberOfPages;
-    this.readStatus = readStatus;
-}
+class Book{
 
-function returnLastItem(array){ //returs last element of an array
-    return array[array.length - 1];
+    constructor(title, author, numberOfPages, readStatus){
+        this.title = title;
+        this.author = author;
+        this.numberOfPages = numberOfPages;
+        this.readStatus = readStatus;
+    }
 }
 
 let myLibrary = [];
+const popUpForm = document.querySelector('.form-popup');
+const cancelBtn = document.querySelector('.cancel');
+const addBtn = document.querySelector('.add');
+const container = document.querySelector('.container');
+const myForm = document.querySelector('#myForm');
+
+function addBookToLibrary(){
+    let title = document.getElementsByName('title')[0].value;
+    let author = document.getElementsByName('author')[0].value;
+    let numberOfPages = document.getElementsByName('page-number')[0].value;
+    let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
+
+    myLibrary.push(new Book(title,author,numberOfPages,readStatus));
+    returnLastItem(myLibrary).display();
+    console.table(myLibrary);
+}
+
+function returnLastItem(array){ //returns last element of an array
+    return array[array.length - 1];
+}
+
 let cardCounter = 1;
 Book.prototype.display = function(){
     cardId = 'card'+ cardCounter;
     this.cardId = cardId; //added cardId property to retrieve index of the array
     createCard(cardId,this.readStatus); //creates card with unique id to show book information
     cardCounter++
-    let bookTitle = document.createElement('p');
-    bookTitle.textContent = this.title;
-    bookTitle.setAttribute('class', 'bookTitle');
-    let bookAuthor = document.createElement('p');
-    bookAuthor.textContent = `Author: ${this.author}`;
-    bookAuthor.setAttribute('class','bookAuthor');
-    let bookNumberOfPages = document.createElement('p');
-    bookNumberOfPages.textContent = `Page Count: ${this.numberOfPages}`;
-    bookNumberOfPages.setAttribute('class','bookNumberOfPages');
+    
+    // create seperate funciton to create 'p' element and add text infront of it
+    function showBookInfo(text, className){
+        bookInfo = document.createElement('p');
+        bookInfo.textContent = text;
+        bookInfo.setAttribute('class',`${className}`);
+        return bookInfo;
+    }
+
+    let bookTitle = showBookInfo(`${this.title}`, 'bookTitle');
+    let bookAuthor = showBookInfo(`Author: ${this.author}`, 'bookAuthor');
+    let bookNumberOfPages = showBookInfo(`Page Count: ${this.numberOfPages}`, 'bookNumberOfPages');
+    
     appendToParent(`#${cardId}`, bookTitle,bookAuthor,bookNumberOfPages);
 }
 
 function appendToParent(parentNode,node1, node2, node3){
-    document.querySelector(`${parentNode}`).appendChild(node1);
-    document.querySelector(`${parentNode}`).appendChild(node2);
-    document.querySelector(`${parentNode}`).appendChild(node3);
-}
-
-
-function addBookToLibrary(){
-    let title = document.getElementsByName('title')[0].value;
-    let author = document.getElementsByName('author')[0].value;
-    let numberOfPages =document.getElementsByName('page-number')[0].value;
-    let readStatus = getRadioInputValue(document.getElementsByName('read-status'));
-    myLibrary.push(new Book(title,author,numberOfPages,readStatus));
-    returnLastItem(myLibrary).display();
-    console.table(myLibrary);
-    
+    const cardParentNode = document.querySelector(`${parentNode}`);
+    cardParentNode.appendChild(node1);
+    cardParentNode.appendChild(node2);
+    cardParentNode.appendChild(node3);
 }
 
 function getRadioInputValue(options){
@@ -52,23 +65,27 @@ function getRadioInputValue(options){
     }
 }
 
-const popUpForm = document.querySelector('.form-popup');
-const cancelBtn = document.querySelector('.cancel');
-const addBtn = document.querySelector('.add');
+function createCard(idName,readStatus){
+    let card = document.createElement('div');
+    card.setAttribute('id',`${idName}`);
+    card.setAttribute('class','card');
+    container.appendChild(card);
 
-addBtn.addEventListener('click',(e) => {
-    popUpForm.style.display = 'block'; //makes pop up form visible
-    clearInputField();
-});
-cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
+    let readBtn = document.createElement('button');
+    readBtn.setAttribute('class','readBtn');
+    showReadStatus(readStatus,readBtn);
+    card.appendChild(readBtn);
 
-document.querySelector('#myForm').addEventListener('submit',(e) => {
-    e.preventDefault(); //prevents page from refreshing
-    addBookToLibrary();
-    clearInputField();
-    popUpForm.style.display= 'none';
+    const readButton = card.childNodes; //Creates live nodelist that updates itself when new DOM is added
+    changeReadStatus(readButton);
     
-});
+    let deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class','deleteBtn');
+    deleteBtn.textContent = 'Delete';
+    card.appendChild(deleteBtn);
+
+    deleteCard(deleteBtn);
+}
 
 function clearInputField(){
     document.getElementsByName('title')[0].value = '';
@@ -80,26 +97,20 @@ function clearInputField(){
     }
 }
 
-function createCard(idName,readStatus){
-    let card = document.createElement('div');
-    card.setAttribute('id',`${idName}`);
-    card.setAttribute('class','card');
-    document.querySelector('.container').appendChild(card);
-    let readBtn = document.createElement('button');
-    readBtn.setAttribute('class','readBtn');
-    showReadStatus(readStatus,readBtn);
-    document.querySelector(`#${idName}`).appendChild(readBtn);
+addBtn.addEventListener('click',(e) => {
+    popUpForm.style.display = 'block'; //makes pop up form visible
+    clearInputField();
+});
 
-    const readButton = card.childNodes; //Creates live nodelist that updates itself when new DOM is added
-    changeReadStatus(readButton);
+cancelBtn.addEventListener('click',() => popUpForm.style.display ='none');
+
+myForm.addEventListener('submit',(e) => {
+    e.preventDefault(); //prevents page from refreshing
+    addBookToLibrary();
+    clearInputField();
+    popUpForm.style.display= 'none';
     
-    let deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class','deleteBtn');
-    deleteBtn.textContent = 'Delete';
-    document.querySelector(`#${idName}`).appendChild(deleteBtn);
-
-    deleteCard(deleteBtn);
-}
+});
 
 function showReadStatus(readStatus,readBtn){
     if(readStatus === 'yes'){
@@ -110,6 +121,7 @@ function showReadStatus(readStatus,readBtn){
         readBtn.textContent = 'Not Completed';
     }
 }
+
 function changeReadStatus(readButton){
     readButton.forEach(readButton =>{
         readButton.addEventListener('click',(e) =>{
@@ -135,6 +147,6 @@ function deleteCard(deleteBtn){
             let parentCardId = parentCard.getAttribute('id');
             const libraryCardIdIndex = myLibrary.findIndex(cardIndex => (cardIndex.cardId === parentCardId)); //gets index of book in myLibrary
             myLibrary.splice(libraryCardIdIndex,1); // Deletes book from myLibrary array
-            document.querySelector('.container').removeChild(parentCard);
+            container.removeChild(parentCard);
     });
 }
