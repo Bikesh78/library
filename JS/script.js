@@ -115,9 +115,7 @@ cancelBtn.addEventListener("click", () => (popUpForm.style.display = "none"));
 
 formInput.forEach((input) => {
   input.addEventListener("input", (e) => {
-    console.log(input.value);
     const inputError = input.nextElementSibling;
-    console.log(inputError);
     if (input.validity.valid) {
       input.setCustomValidity("");
       input.checkValidity();
